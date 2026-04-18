@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['newline_0',['newline',['../classSC16IS752Logger.html#a7ef532fc326dbfe4c0e37a95494ccea1',1,'SC16IS752Logger']]]
+  ['modempin_0',['modemPin',['../classSC16IS752.html#acc5ff56f394abedb4d1014df29352a9e',1,'SC16IS752']]]
 ];

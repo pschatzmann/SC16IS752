@@ -11,7 +11,7 @@ SC16IS752 driver for Arduino
 #include "SC16IS752Logger.h"
 
 #define SC16IS752_SERIAL_CONFIG(data_bits, parity_code, stop_bits) \
-  ((((data_bits) - 5) & 0x03) | (((parity_code) & 0x03) << 2) | \
+  ((((data_bits) - 5) & 0x03) | (((parity_code) & 0x03) << 2) |    \
    ((((stop_bits) - 1) & 0x01) << 4))
 
 #ifndef SERIAL_5N1
@@ -87,22 +87,38 @@ SC16IS752 driver for Arduino
 #define SERIAL_8O2 SC16IS752_SERIAL_CONFIG(8, 1, 2)
 #endif
 
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_AA = 0x48;  ///< 7-bit I2C address option AA.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_AB = 0x49;  ///< 7-bit I2C address option AB.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_AC = 0x4A;  ///< 7-bit I2C address option AC.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_AD = 0x4B;  ///< 7-bit I2C address option AD.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_BA = 0x4C;  ///< 7-bit I2C address option BA.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_BB = 0x4D;  ///< 7-bit I2C address option BB.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_BC = 0x4E;  ///< 7-bit I2C address option BC.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_BD = 0x4F;  ///< 7-bit I2C address option BD.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_CA = 0x50;  ///< 7-bit I2C address option CA.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_CB = 0x51;  ///< 7-bit I2C address option CB.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_CC = 0x52;  ///< 7-bit I2C address option CC.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_CD = 0x53;  ///< 7-bit I2C address option CD.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_DA = 0x54;  ///< 7-bit I2C address option DA.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_DB = 0x55;  ///< 7-bit I2C address option DB.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_DC = 0x56;  ///< 7-bit I2C address option DC.
-static constexpr uint8_t SC16IS750_I2C_ADDRESS_DD = 0x57;  ///< 7-bit I2C address option DD.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_AA =
+    0x48;  ///< 7-bit I2C address option AA.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_AB =
+    0x49;  ///< 7-bit I2C address option AB.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_AC =
+    0x4A;  ///< 7-bit I2C address option AC.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_AD =
+    0x4B;  ///< 7-bit I2C address option AD.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_BA =
+    0x4C;  ///< 7-bit I2C address option BA.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_BB =
+    0x4D;  ///< 7-bit I2C address option BB.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_BC =
+    0x4E;  ///< 7-bit I2C address option BC.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_BD =
+    0x4F;  ///< 7-bit I2C address option BD.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_CA =
+    0x50;  ///< 7-bit I2C address option CA.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_CB =
+    0x51;  ///< 7-bit I2C address option CB.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_CC =
+    0x52;  ///< 7-bit I2C address option CC.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_CD =
+    0x53;  ///< 7-bit I2C address option CD.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_DA =
+    0x54;  ///< 7-bit I2C address option DA.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_DB =
+    0x55;  ///< 7-bit I2C address option DB.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_DC =
+    0x56;  ///< 7-bit I2C address option DC.
+static constexpr uint8_t SC16IS750_I2C_ADDRESS_DD =
+    0x57;  ///< 7-bit I2C address option DD.
 
 /**
  * @enum SC16IS750_IIR
@@ -119,9 +135,12 @@ enum SC16IS750_IIR {
   SC16IS750_CTS_RTS_CHANGE              ///< CTS/RTS state change.
 };
 
-static constexpr uint32_t SC16IS752_DEFAULT_SPEED = 9600;        ///< Default UART baud rate.
-static constexpr uint32_t SC16IS752_DEFAULT_CONFIG = SERIAL_8N1; ///< Default UART frame format.
-static constexpr uint32_t SC16IS752_DEFAULT_SPI_CLOCK = 4000000; ///< Default SPI clock in Hz.
+static constexpr uint32_t SC16IS752_DEFAULT_SPEED =
+    9600;  ///< Default UART baud rate.
+static constexpr uint32_t SC16IS752_DEFAULT_CONFIG =
+    SERIAL_8N1;  ///< Default UART frame format.
+static constexpr uint32_t SC16IS752_DEFAULT_SPI_CLOCK =
+    4000000;  ///< Default SPI clock in Hz.
 
 /**
  * @class SC16IS752
@@ -226,8 +245,6 @@ class SC16IS752 {
     }
     /// Gracefully closes this channel
     void end() { parent_.endChannel(channel_); }
-    /// Alias for end()
-    void close() { end(); }
     /// Returns the line status register for this channel
     uint8_t linestate() { return parent_.linestate(channel_); }
     /// Tests whether an interrupt is pending for this channel
@@ -307,55 +324,97 @@ class SC16IS752 {
   /// Sets read timeout in milliseconds
   void setTimeout(uint32_t time_out) { timeout = time_out; }
 
+  /// Gracefully closes both UART channels and resets the device
+  void end() {
+    endChannel(SC16IS752_CHANNEL_A);
+    endChannel(SC16IS752_CHANNEL_B);
+    resetDevice();
+    is_active = false;
+  }
+
+
   friend class ChannelStream;
 
  protected:
   // General Registers
-  static constexpr uint8_t SC16IS750_REG_RHR = 0x00;      ///< Receive Holding Register.
-  static constexpr uint8_t SC16IS750_REG_THR = 0x00;      ///< Transmit Holding Register.
-  static constexpr uint8_t SC16IS750_REG_IER = 0x01;      ///< Interrupt Enable Register.
-  static constexpr uint8_t SC16IS750_REG_FCR = 0x02;      ///< FIFO Control Register.
-  static constexpr uint8_t SC16IS750_REG_IIR = 0x02;      ///< Interrupt Identification Register.
-  static constexpr uint8_t SC16IS750_REG_LCR = 0x03;      ///< Line Control Register.
-  static constexpr uint8_t SC16IS750_REG_MCR = 0x04;      ///< Modem Control Register.
-  static constexpr uint8_t SC16IS750_REG_LSR = 0x05;      ///< Line Status Register.
-  static constexpr uint8_t SC16IS750_REG_MSR = 0x06;      ///< Modem Status Register.
-  static constexpr uint8_t SC16IS750_REG_SPR = 0x07;      ///< Scratchpad Register.
-  static constexpr uint8_t SC16IS750_REG_TCR = 0x06;      ///< Transmission Control Register.
-  static constexpr uint8_t SC16IS750_REG_TLR = 0x07;      ///< Trigger Level Register.
-  static constexpr uint8_t SC16IS750_REG_TXLVL = 0x08;    ///< TX FIFO Level Register.
-  static constexpr uint8_t SC16IS750_REG_RXLVL = 0x09;    ///< RX FIFO Level Register.
-  static constexpr uint8_t SC16IS750_REG_IODIR = 0x0A;    ///< GPIO Direction Register.
-  static constexpr uint8_t SC16IS750_REG_IOSTATE = 0x0B;  ///< GPIO State Register.
-  static constexpr uint8_t SC16IS750_REG_IOINTENA = 0x0C; ///< GPIO Interrupt Enable Register.
-  static constexpr uint8_t SC16IS750_REG_IOCONTROL = 0x0E;///< GPIO/IO Control Register.
-  static constexpr uint8_t SC16IS750_REG_EFCR = 0x0F;     ///< Extra Features Control Register.
+  static constexpr uint8_t SC16IS750_REG_RHR =
+      0x00;  ///< Receive Holding Register.
+  static constexpr uint8_t SC16IS750_REG_THR =
+      0x00;  ///< Transmit Holding Register.
+  static constexpr uint8_t SC16IS750_REG_IER =
+      0x01;  ///< Interrupt Enable Register.
+  static constexpr uint8_t SC16IS750_REG_FCR =
+      0x02;  ///< FIFO Control Register.
+  static constexpr uint8_t SC16IS750_REG_IIR =
+      0x02;  ///< Interrupt Identification Register.
+  static constexpr uint8_t SC16IS750_REG_LCR =
+      0x03;  ///< Line Control Register.
+  static constexpr uint8_t SC16IS750_REG_MCR =
+      0x04;  ///< Modem Control Register.
+  static constexpr uint8_t SC16IS750_REG_LSR = 0x05;  ///< Line Status Register.
+  static constexpr uint8_t SC16IS750_REG_MSR =
+      0x06;  ///< Modem Status Register.
+  static constexpr uint8_t SC16IS750_REG_SPR = 0x07;  ///< Scratchpad Register.
+  static constexpr uint8_t SC16IS750_REG_TCR =
+      0x06;  ///< Transmission Control Register.
+  static constexpr uint8_t SC16IS750_REG_TLR =
+      0x07;  ///< Trigger Level Register.
+  static constexpr uint8_t SC16IS750_REG_TXLVL =
+      0x08;  ///< TX FIFO Level Register.
+  static constexpr uint8_t SC16IS750_REG_RXLVL =
+      0x09;  ///< RX FIFO Level Register.
+  static constexpr uint8_t SC16IS750_REG_IODIR =
+      0x0A;  ///< GPIO Direction Register.
+  static constexpr uint8_t SC16IS750_REG_IOSTATE =
+      0x0B;  ///< GPIO State Register.
+  static constexpr uint8_t SC16IS750_REG_IOINTENA =
+      0x0C;  ///< GPIO Interrupt Enable Register.
+  static constexpr uint8_t SC16IS750_REG_IOCONTROL =
+      0x0E;  ///< GPIO/IO Control Register.
+  static constexpr uint8_t SC16IS750_REG_EFCR =
+      0x0F;  ///< Extra Features Control Register.
 
   // Special Registers
   static constexpr uint8_t SC16IS750_REG_DLL = 0x00;  ///< Divisor Latch LSB.
   static constexpr uint8_t SC16IS750_REG_DLH = 0x01;  ///< Divisor Latch MSB.
 
   // Enhanced Registers
-  static constexpr uint8_t SC16IS750_REG_EFR = 0x02;    ///< Enhanced Features Register.
-  static constexpr uint8_t SC16IS750_REG_XON1 = 0x04;   ///< XON1 flow-control character.
-  static constexpr uint8_t SC16IS750_REG_XON2 = 0x05;   ///< XON2 flow-control character.
-  static constexpr uint8_t SC16IS750_REG_XOFF1 = 0x06;  ///< XOFF1 flow-control character.
-  static constexpr uint8_t SC16IS750_REG_XOFF2 = 0x07;  ///< XOFF2 flow-control character.
+  static constexpr uint8_t SC16IS750_REG_EFR =
+      0x02;  ///< Enhanced Features Register.
+  static constexpr uint8_t SC16IS750_REG_XON1 =
+      0x04;  ///< XON1 flow-control character.
+  static constexpr uint8_t SC16IS750_REG_XON2 =
+      0x05;  ///< XON2 flow-control character.
+  static constexpr uint8_t SC16IS750_REG_XOFF1 =
+      0x06;  ///< XOFF1 flow-control character.
+  static constexpr uint8_t SC16IS750_REG_XOFF2 =
+      0x07;  ///< XOFF2 flow-control character.
 
   // Interrupt Enable Register
-  static constexpr uint8_t SC16IS750_INT_CTS = 0x80;    ///< CTS change interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_RTS = 0x40;    ///< RTS change interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_XOFF = 0x20;   ///< XOFF interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_SLEEP = 0x10;  ///< Sleep mode interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_MODEM = 0x08;  ///< Modem status interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_LINE = 0x04;   ///< Line status interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_THR = 0x02;    ///< TX holding register interrupt enable bit.
-  static constexpr uint8_t SC16IS750_INT_RHR = 0x01;    ///< RX holding register interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_CTS =
+      0x80;  ///< CTS change interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_RTS =
+      0x40;  ///< RTS change interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_XOFF =
+      0x20;  ///< XOFF interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_SLEEP =
+      0x10;  ///< Sleep mode interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_MODEM =
+      0x08;  ///< Modem status interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_LINE =
+      0x04;  ///< Line status interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_THR =
+      0x02;  ///< TX holding register interrupt enable bit.
+  static constexpr uint8_t SC16IS750_INT_RHR =
+      0x01;  ///< RX holding register interrupt enable bit.
 
   // Application related
-  // static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ = 14745600UL;  ///< Optional crystal frequency (Hz).
-  static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ = 1843200UL;      ///< Default crystal frequency (Hz).
-  // static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ = 16000000UL;  ///< Optional crystal frequency (Hz).
+  // static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ = 14745600UL;  ///<
+  // Optional crystal frequency (Hz).
+  static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ =
+      1843200UL;  ///< Default crystal frequency (Hz).
+  // static constexpr uint32_t SC16IS750_CRYSTCAL_FREQ = 16000000UL;  ///<
+  // Optional crystal frequency (Hz).
 
   bool is_active = false;
   uint8_t device_address_sspin;
@@ -418,13 +477,6 @@ class SC16IS752 {
     fifoReset(channel, 0);  // reset RX FIFO
     fifoReset(channel, 1);  // reset TX FIFO
     fifoEnable(channel, 0);
-  }
-
-  /// Gracefully closes both UART channels
-  void end() {
-    endChannel(SC16IS752_CHANNEL_A);
-    endChannel(SC16IS752_CHANNEL_B);
-    is_active = false;
   }
 
   /// Reads a byte from the specified channel
@@ -600,30 +652,17 @@ class SC16IS752 {
     }
   }
 
-  // Low-level utility
-  int16_t readWithTimeout(SC16IS752_Channel* channel) {
-    int16_t tmp;
-    uint32_t time_stamp;
-    time_stamp = millis();
-    do {
-      *channel = SC16IS752_CHANNEL_A;
-      tmp = read(SC16IS752_CHANNEL_A);
-      if (tmp >= 0) return tmp;
-      *channel = SC16IS752_CHANNEL_B;
-      tmp = read(SC16IS752_CHANNEL_B);
-      if (tmp >= 0) return tmp;
-    } while (millis() - time_stamp < timeout);
-    return -1;  // -1 indicates timeout
-  }
-
+  /// Returns the current state of all GPIO pins as a bitmask.
   uint8_t gpioGetPortState(void) {
     return readRegister(SC16IS752_CHANNEL_BOTH, SC16IS750_REG_IOSTATE);
   }
 
+  /// Writes interrupt enable flags for the selected UART channel.
   void interruptControl(SC16IS752_Channel channel, uint8_t int_ena) {
     writeRegister(channel, SC16IS750_REG_IER, int_ena);
   }
 
+  /// Selects whether upper IO pins operate as modem pins or GPIO pins.
   void modemPin(uint8_t gpio) {  // gpio == 0, gpio[7:4] are modem pins, gpio ==
                                  // 1 gpio[7:4] are gpios
     uint8_t temp_iocontrol;
@@ -641,6 +680,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Enables or disables GPIO output latching behavior.
   void gpioLatch(uint8_t latch) {
     uint8_t temp_iocontrol;
 
@@ -657,6 +697,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Configures baud rate divisor and returns error in parts-per-thousand.
   int16_t setBaudrate(
       SC16IS752_Channel channel,
       uint32_t baudrate) {  // return error of baudrate parts per thousand
@@ -696,6 +737,7 @@ class SC16IS752 {
     return error;
   }
 
+  /// Reads one register byte from the selected channel via I2C or SPI.
   uint8_t readRegister(SC16IS752_Channel channel, uint8_t reg_addr) {
     uint8_t result;
     if (wire_bus != nullptr) {  // register read operation via I2C
@@ -723,6 +765,7 @@ class SC16IS752 {
     return result;
   }
 
+  /// Writes one register byte to the selected channel via I2C or SPI.
   void writeRegister(SC16IS752_Channel channel, uint8_t reg_addr, uint8_t val) {
     if (logger) {
       logger->debug("WriteRegister ch=%X reg=%X val=%X", channel,
@@ -747,6 +790,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Configures line format by data bits, parity mode, and stop bits.
   void setLine(SC16IS752_Channel channel, uint8_t data_length,
                uint8_t parity_select, uint8_t stop_length) {
     uint8_t temp_lcr;
@@ -824,6 +868,7 @@ class SC16IS752 {
   /// Reads GPIO pin level (returns 0 or 1)
   uint8_t digitalRead(uint8_t pin) { return gpioGetPinState(pin); }
 
+  /// Sets one GPIO pin direction (`OUTPUT` or `INPUT`).
   void gpioSetPinMode(uint8_t pin_number, uint8_t i_o) {
     uint8_t temp_iodir;
 
@@ -838,6 +883,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Sets one GPIO output pin state (`HIGH` or `LOW`).
   void gpioSetPinState(uint8_t pin_number, uint8_t pin_state) {
     uint8_t temp_iostate;
 
@@ -852,6 +898,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Reads one GPIO pin state and returns 0 or 1.
   uint8_t gpioGetPinState(uint8_t pin_number) {
     uint8_t temp_iostate;
 
@@ -862,16 +909,19 @@ class SC16IS752 {
     return 1;
   }
 
+  /// Sets direction of all GPIO pins using a bitmask.
   void gpioSetPortMode(uint8_t port_io) {
     writeRegister(SC16IS752_CHANNEL_BOTH, SC16IS750_REG_IODIR, port_io);
     return;
   }
 
+  /// Sets output state of all GPIO pins using a bitmask.
   void gpioSetPortState(uint8_t port_state) {
     writeRegister(SC16IS752_CHANNEL_BOTH, SC16IS750_REG_IOSTATE, port_state);
     return;
   }
 
+  /// Issues a software reset to the SC16IS752 device.
   void resetDevice() {
     uint8_t reg;
 
@@ -882,6 +932,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Enables or disables FIFO for the selected channel.
   void fifoEnable(SC16IS752_Channel channel, uint8_t fifo_enable) {
     uint8_t temp_fcr;
 
@@ -897,6 +948,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Resets RX or TX FIFO for the selected channel.
   void fifoReset(SC16IS752_Channel channel, uint8_t rx_fifo) {
     uint8_t temp_fcr;
 
@@ -912,6 +964,7 @@ class SC16IS752 {
     return;
   }
 
+  /// Sets RX or TX FIFO trigger level for interrupt generation.
   void fifoSetTriggerLevel(SC16IS752_Channel channel, uint8_t rx_fifo,
                            uint8_t length) {
     uint8_t temp_reg;
@@ -939,19 +992,21 @@ class SC16IS752 {
     return;
   }
 
+  /// Returns number of bytes currently available in RX FIFO.
   uint8_t fifoAvailableData(SC16IS752_Channel channel) {
     uint8_t avail = readRegister(channel, SC16IS750_REG_RXLVL);
     if (logger) {
       logger->debug("Available data: %d", avail);
     }
     return avail;
-    // return ReadRegister(channel, SC16IS750_REG_LSR) & 0x01;
   }
 
+  /// Returns free space currently available in TX FIFO.
   uint8_t fifoAvailableSpace(SC16IS752_Channel channel) {
     return readRegister(channel, SC16IS750_REG_TXLVL);
   }
 
+  /// Writes one byte to TX holding register when transmitter is ready.
   void writeByte(SC16IS752_Channel channel, uint8_t val) {
     uint8_t tmp_lsr;
 
@@ -962,6 +1017,7 @@ class SC16IS752 {
     writeRegister(channel, SC16IS750_REG_THR, val);
   }
 
+  /// Reads one byte from RX holding register, or -1 when no data is available.
   int readByte(SC16IS752_Channel channel) {
     volatile uint8_t val;
     if (fifoAvailableData(channel) == 0) {
@@ -978,57 +1034,130 @@ class SC16IS752 {
     }
   }
 
+  /// Decodes Arduino `SERIAL_*` format into data bits, parity, and stop bits.
   bool decodeSerialConfig(uint32_t config, uint8_t* data_length,
                           uint8_t* parity_select, uint8_t* stop_length) {
     switch (config) {
       case SERIAL_5N1:
-        *data_length = 5; *parity_select = 0; *stop_length = 1; return true;
+        *data_length = 5;
+        *parity_select = 0;
+        *stop_length = 1;
+        return true;
       case SERIAL_6N1:
-        *data_length = 6; *parity_select = 0; *stop_length = 1; return true;
+        *data_length = 6;
+        *parity_select = 0;
+        *stop_length = 1;
+        return true;
       case SERIAL_7N1:
-        *data_length = 7; *parity_select = 0; *stop_length = 1; return true;
+        *data_length = 7;
+        *parity_select = 0;
+        *stop_length = 1;
+        return true;
       case SERIAL_8N1:
-        *data_length = 8; *parity_select = 0; *stop_length = 1; return true;
+        *data_length = 8;
+        *parity_select = 0;
+        *stop_length = 1;
+        return true;
       case SERIAL_5N2:
-        *data_length = 5; *parity_select = 0; *stop_length = 2; return true;
+        *data_length = 5;
+        *parity_select = 0;
+        *stop_length = 2;
+        return true;
       case SERIAL_6N2:
-        *data_length = 6; *parity_select = 0; *stop_length = 2; return true;
+        *data_length = 6;
+        *parity_select = 0;
+        *stop_length = 2;
+        return true;
       case SERIAL_7N2:
-        *data_length = 7; *parity_select = 0; *stop_length = 2; return true;
+        *data_length = 7;
+        *parity_select = 0;
+        *stop_length = 2;
+        return true;
       case SERIAL_8N2:
-        *data_length = 8; *parity_select = 0; *stop_length = 2; return true;
+        *data_length = 8;
+        *parity_select = 0;
+        *stop_length = 2;
+        return true;
       case SERIAL_5E1:
-        *data_length = 5; *parity_select = 2; *stop_length = 1; return true;
+        *data_length = 5;
+        *parity_select = 2;
+        *stop_length = 1;
+        return true;
       case SERIAL_6E1:
-        *data_length = 6; *parity_select = 2; *stop_length = 1; return true;
+        *data_length = 6;
+        *parity_select = 2;
+        *stop_length = 1;
+        return true;
       case SERIAL_7E1:
-        *data_length = 7; *parity_select = 2; *stop_length = 1; return true;
+        *data_length = 7;
+        *parity_select = 2;
+        *stop_length = 1;
+        return true;
       case SERIAL_8E1:
-        *data_length = 8; *parity_select = 2; *stop_length = 1; return true;
+        *data_length = 8;
+        *parity_select = 2;
+        *stop_length = 1;
+        return true;
       case SERIAL_5E2:
-        *data_length = 5; *parity_select = 2; *stop_length = 2; return true;
+        *data_length = 5;
+        *parity_select = 2;
+        *stop_length = 2;
+        return true;
       case SERIAL_6E2:
-        *data_length = 6; *parity_select = 2; *stop_length = 2; return true;
+        *data_length = 6;
+        *parity_select = 2;
+        *stop_length = 2;
+        return true;
       case SERIAL_7E2:
-        *data_length = 7; *parity_select = 2; *stop_length = 2; return true;
+        *data_length = 7;
+        *parity_select = 2;
+        *stop_length = 2;
+        return true;
       case SERIAL_8E2:
-        *data_length = 8; *parity_select = 2; *stop_length = 2; return true;
+        *data_length = 8;
+        *parity_select = 2;
+        *stop_length = 2;
+        return true;
       case SERIAL_5O1:
-        *data_length = 5; *parity_select = 1; *stop_length = 1; return true;
+        *data_length = 5;
+        *parity_select = 1;
+        *stop_length = 1;
+        return true;
       case SERIAL_6O1:
-        *data_length = 6; *parity_select = 1; *stop_length = 1; return true;
+        *data_length = 6;
+        *parity_select = 1;
+        *stop_length = 1;
+        return true;
       case SERIAL_7O1:
-        *data_length = 7; *parity_select = 1; *stop_length = 1; return true;
+        *data_length = 7;
+        *parity_select = 1;
+        *stop_length = 1;
+        return true;
       case SERIAL_8O1:
-        *data_length = 8; *parity_select = 1; *stop_length = 1; return true;
+        *data_length = 8;
+        *parity_select = 1;
+        *stop_length = 1;
+        return true;
       case SERIAL_5O2:
-        *data_length = 5; *parity_select = 1; *stop_length = 2; return true;
+        *data_length = 5;
+        *parity_select = 1;
+        *stop_length = 2;
+        return true;
       case SERIAL_6O2:
-        *data_length = 6; *parity_select = 1; *stop_length = 2; return true;
+        *data_length = 6;
+        *parity_select = 1;
+        *stop_length = 2;
+        return true;
       case SERIAL_7O2:
-        *data_length = 7; *parity_select = 1; *stop_length = 2; return true;
+        *data_length = 7;
+        *parity_select = 1;
+        *stop_length = 2;
+        return true;
       case SERIAL_8O2:
-        *data_length = 8; *parity_select = 1; *stop_length = 2; return true;
+        *data_length = 8;
+        *parity_select = 1;
+        *stop_length = 2;
+        return true;
       default:
         *data_length = 8;
         *parity_select = 0;
@@ -1038,11 +1167,4 @@ class SC16IS752 {
   }
 };
 
-
 using SC16IS752_Channel = SC16IS752::SC16IS752_Channel;
-static constexpr SC16IS752_Channel SC16IS752_CHANNEL_A =
-  SC16IS752::SC16IS752_CHANNEL_A;  ///< Compatibility alias for channel A.
-static constexpr SC16IS752_Channel SC16IS752_CHANNEL_B =
-  SC16IS752::SC16IS752_CHANNEL_B;  ///< Compatibility alias for channel B.
-static constexpr SC16IS752_Channel SC16IS752_CHANNEL_BOTH =
-  SC16IS752::SC16IS752_CHANNEL_BOTH;  ///< Compatibility alias for shared/global registers.

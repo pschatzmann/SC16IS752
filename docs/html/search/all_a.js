@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3d_0',['operator=',['../classSC16IS752.html#a57bd2d67b6e531e17216d980ef0550ff',1,'SC16IS752::operator=(const SC16IS752 &amp;)=delete'],['../classSC16IS752.html#a46f51057dfa4ee0cb1612d2e44b35cda',1,'SC16IS752::operator=(SC16IS752 &amp;&amp;)=delete']]]
+  ['newline_0',['newline',['../classSC16IS752Logger.html#a7ef532fc326dbfe4c0e37a95494ccea1',1,'SC16IS752Logger']]]
 ];

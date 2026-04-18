@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['peek_0',['peek',['../classSC16IS752_1_1ChannelStream.html#ace7e4d23deda4ac317ecbf071a3384fe',1,'SC16IS752::ChannelStream::peek()'],['../classSC16IS752.html#af851d8b3c0de45fee76a858f3fcbaeb5',1,'SC16IS752::peek(SC16IS752_Channel channel)']]],
-  ['ping_1',['ping',['../classSC16IS752.html#a2e6dec8c3aab622e728a5f84019c3df1',1,'SC16IS752']]],
-  ['pinmode_2',['pinMode',['../classSC16IS752.html#ae370b68430af7d625005cbe643f2993b',1,'SC16IS752']]]
+  ['operator_3d_0',['operator=',['../classSC16IS752.html#a57bd2d67b6e531e17216d980ef0550ff',1,'SC16IS752::operator=(const SC16IS752 &amp;)=delete'],['../classSC16IS752.html#a46f51057dfa4ee0cb1612d2e44b35cda',1,'SC16IS752::operator=(SC16IS752 &amp;&amp;)=delete']]]
 ];
