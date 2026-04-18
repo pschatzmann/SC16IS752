@@ -7,8 +7,7 @@ Arduino library for the NXP SC16IS752 dual UART bridge (I2C/SPI).
 
 ![alt text](image-1.png)
 
-Microcontrollers have a limited number of UARTs. If you want to attach many Serial devices and Software Serial is too slow you can use some SC16IS752 modules to add 2 additional serial communication ports for each module.
-
+Microcontrollers typically offer only a limited number of UART interfaces. When you need to connect multiple serial devices and software-based serial communication is too slow or unreliable, you can use __SC16IS752 modules__ to expand your system. Each module provides two additional hardware serial ports, enabling efficient communication with multiple devices.
 
 ## Features
 
