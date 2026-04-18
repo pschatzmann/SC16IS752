@@ -1,0 +1,9 @@
+<map id="SC16IS752" name="SC16IS752">
+<area shape="rect" id="Node000001" title="Driver for the NXP SC16IS752 dual UART bridge over I2C or SPI." alt="" coords="171,183,262,208"/>
+<area shape="rect" id="Node000002" href="$classSC16IS752_1_1ChannelStream.html" title="Per&#45;channel Stream adapter for one SC16IS752 UART." alt="" coords="5,80,204,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,118,114,139,124,157,146,173,172,184,170,189,143,178,120,160,109,141,103,120"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="70,5,139,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,45,107,80,102,80,102,45"/>
+<area shape="rect" id="Node000004" href="$classSC16IS752Logger.html" title="Simple logger for SC16IS752 channels with variadic parameter support and log levels." alt="" coords="228,80,363,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="283,118,253,160,231,184,227,180,249,157,279,115"/>
+</map>
