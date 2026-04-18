@@ -68,4 +68,4 @@ Many breakout boards provide onboard 3.3V regulation for the SC16IS752 core and 
 ## Documentation
 
 - [examples](examples)
-- Class Documentation
+- [Class Documentation](https://pschatzmann.github.io/SC16IS752/docs/html/classSC16IS752.html)
