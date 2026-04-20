@@ -417,7 +417,7 @@ class SC16IS752 {
   // Optional crystal frequency (Hz).
 
   bool is_active = false;
-  uint8_t device_address_sspin;
+  uint8_t device_address_sspin; // i2c address or spi ss pin
   TwoWire* wire_bus;
   SPIClass* spi_bus;
   SPISettings spi_settings{SC16IS752_DEFAULT_SPI_CLOCK, MSBFIRST, SPI_MODE0};
@@ -644,8 +644,8 @@ class SC16IS752 {
   void initializeDevice() {
     if (!is_active) {
       if (spi_bus != nullptr) {
-        pinMode(device_address_sspin, OUTPUT);
-        digitalWrite(device_address_sspin, HIGH);
+        ::pinMode(device_address_sspin, OUTPUT);
+        ::digitalWrite(device_address_sspin, HIGH);
       }
       resetDevice();
       is_active = true;
